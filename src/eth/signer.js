@@ -1,4 +1,4 @@
-import { toNumber } from 'ethers';
+import { toBigInt, toNumber } from 'ethers';
 
 
 const EIP712Domain = [
@@ -47,7 +47,8 @@ async function signTypedData(signer, from, data) {
 
 async function buildRequest(forwarder, input) {
   const nonce = await forwarder.getNonce(input.from).then(nonce => nonce.toString());
-  return { value: 0, gas: 1e6, nonce, ...input};
+  const gas = await forwarder.runner.provider.estimateGas(input).then(gasLimit => (gasLimit).toString());
+  return { value: 0, gas, nonce, ...input};
 }
 
 async function buildTypedData(forwarder, request) {
