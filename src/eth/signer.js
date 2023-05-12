@@ -1,4 +1,4 @@
-import { toBigInt, toNumber } from 'ethers';
+import { toNumber } from 'ethers';
 
 
 const EIP712Domain = [
