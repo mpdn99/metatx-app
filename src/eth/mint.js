@@ -21,7 +21,7 @@ async function sendMetaTx(solashiNFT, provider, signer, input, token) {
 
     const IDtoken = localStorage.getItem("IDtoken");
 
-    const rs = await fetch(`http://localhost:4000/relayer`,{
+    const rs = await fetch(`https://api.ducnghiapham.online/relayer`,{
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
