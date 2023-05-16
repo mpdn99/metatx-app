@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { Button, Dropdown, Form, Input, Layout, Menu, Space, theme } from 'antd';
+import { Button, Dropdown, Form, Image, Input, Layout, Menu, Space, theme } from 'antd';
 import './index.css';
 import { toast, ToastContainer } from 'react-toastify';
 import { mint } from "../../eth/mint";
 import 'react-toastify/dist/ReactToastify.css';
-import { createInstance } from '../../eth/solashiNFT';
+import { createInstance } from '../../eth/vaixDemo';
 import { createProvider } from '../../eth/provider';
 import { Link } from 'react-router-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -44,7 +44,6 @@ const Mint = () => {
         token: { colorBgContainer },
     } = theme.useToken();
 
-    const formRef = React.useRef(null);
     const captchaRef = React.useRef(null);
     const [loading, setLoading] = React.useState(false);
 
@@ -65,21 +64,20 @@ const Mint = () => {
         },
     ];
 
-    const onFinish = async (values) => {
+    const onFinish = async () => {
         setLoading(true);
 
         try {
             let token = await captchaRef.current.getValue();
             if (token) {
                     const provider = createProvider()
-                    const solashiNFT = createInstance(provider)
-                const response = await mint(solashiNFT, provider, values, token);
+                    const vaixDemo = createInstance(provider)
+                const response = await mint(vaixDemo, provider, token);
                 const hash = response.hash;
                     if (hash) {
                         toast('Transaction sent!', { type: 'success' });
-                        window.open(`https://mumbai.polygonscan.com/tx/${hash}`, '_blank');
+                        window.open(`https://polygonscan.com/tx/${hash}`, '_blank');
                     }
-                    formRef.current?.resetFields();
                     captchaRef.current?.reset();
             } else {
                 console.log("You must confirm you are not a robot");
@@ -118,30 +116,24 @@ const Mint = () => {
                     </Space>
             </Header>
             <Content style={{ padding: '0 50px' }}>
+                <h1>Mint NFT</h1>
                 <div className="site-layout-content" style={{ background: colorBgContainer }}>
                     <Form
                         {...layout}
-                        ref={formRef}
                         name="control-ref"
                         onFinish={onFinish}
                         style={{ maxWidth: 600 }}
                     >
-                        <h1>Mint NFT</h1>
-                        <Form.Item name="sendTokenTo" label="To" rules={[{ required: true }]}>
-                            <Input />
-                        </Form.Item>
-                        <Form.Item name="tokenId" label="TokenId" rules={[{ required: true }]}>
-                            <Input />
-                        </Form.Item>
-                        <Form.Item name="tokenUrl" label="Url" rules={[{ required: true }]}>
-                            <Input />
+                        <Form.Item {...tailLayout}>
+                            <h3>VAIX NFT:</h3>
+                            <Image width={250} src={require('../../assets/dog.gif')} />
                         </Form.Item>
                         <Form.Item {...tailLayout}>
                             <ReCAPTCHA sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} />
                         </Form.Item>
                         <Form.Item {...tailLayout}>
                             <Button type="primary" htmlType="submit" loading={loading}>
-                                Submit
+                                Mint NFT
                             </Button>
                         </Form.Item>
                     </Form>

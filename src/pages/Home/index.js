@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Layout } from 'antd';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { createInstance } from '../../eth/solashiNFT';
+import { createInstance } from '../../eth/vaixDemo';
 import { createProvider } from '../../eth/provider';
 import { useNavigate } from 'react-router-dom';
 import { verifierUser } from '../../eth/verifyUser';
@@ -12,13 +12,15 @@ const { Header, Content } = Layout;
 const Mint = () => {
   const navigate = useNavigate();
   const provider = createProvider()
-  const solashiNFT = createInstance(provider)
+  const vaixDemo = createInstance(provider)
   const handleClick = async () => {
-    const signature = await verifierUser(solashiNFT, provider);
-    if (signature) {
-      navigate('/mint')
-    } else {
-      toast('Please connect wallet');
+    try {
+      const signature = await verifierUser(vaixDemo, provider);
+      if (signature) {
+        navigate('/mint')
+      }
+    } catch (error) {
+      toast.error(error.message)
     }
   }
   return (

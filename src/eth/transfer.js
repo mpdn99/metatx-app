@@ -2,16 +2,15 @@ import { ethers, toNumber } from "ethers";
 import { createInstance } from './forwarder';
 import { signMetaTxRequest } from './signer';
 
-async function sendMetaTx(solashiNFT, provider, signer, input, token) {
+async function sendMetaTx(vaixDemo, provider, signer, input, token) {
     const { sendTokenTo, tokenId } = input;
-    console.log(`Sending meta-tx transfer NFT to ${sendTokenTo}...`);
-    const url = process.env.REACT_APP_WEBHOOK_URL;
-    if (!url) throw new Error('Missing relayer url');
+    // const url = process.env.REACT_APP_WEBHOOK_URL;
+    // if (!url) throw new Error('Missing relayer url');
 
     const forwarder = createInstance(provider);
     const from = await (await signer).getAddress();
-    const data = solashiNFT.interface.encodeFunctionData('safeTransferFrom(address,address,uint256)', [from, sendTokenTo, tokenId]);
-    const to = await solashiNFT.getAddress();
+    const data = vaixDemo.interface.encodeFunctionData('safeTransferFrom(address,address,uint256)', [from, sendTokenTo, tokenId]);
+    const to = await vaixDemo.getAddress();
     const request = await signMetaTxRequest((await signer).provider, forwarder, { to, from, data });
 
     // return fetch(url, {
@@ -27,7 +26,7 @@ async function sendMetaTx(solashiNFT, provider, signer, input, token) {
         g_response: token,
     }
 
-    const rs = await fetch(`https://api.ducnghiapham.online/relayer`,{
+    const rs = await fetch(`http://localhost:4000/relayer`,{
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
@@ -40,11 +39,11 @@ async function sendMetaTx(solashiNFT, provider, signer, input, token) {
     return res;
 }
 
-export async function transfer(solashiNFT, provider, input, token) {
+export async function transfer(vaixDemo, provider, input) {
     await window.ethereum.request({ method: 'eth_requestAccounts' });
     const userProvider = new ethers.BrowserProvider(window.ethereum)
     const userNetwork = await userProvider.getNetwork();
-    if (toNumber(userNetwork.chainId) !== 80001) throw new Error(`Please switch to Mumbai for signing`);
+    if (toNumber(userNetwork.chainId) !== 137) throw new Error(`Please switch to Polygon Mainet for signing`);
     const signer = userProvider.getSigner();
-    return sendMetaTx(solashiNFT, provider, signer, input, token);
+    return sendMetaTx(vaixDemo, provider, signer, input);
 }

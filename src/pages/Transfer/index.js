@@ -3,7 +3,7 @@ import { Button, Dropdown, Form, Input, Layout, Menu, Space, theme } from 'antd'
 import './index.css';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { createInstance } from '../../eth/solashiNFT';
+import { createInstance } from '../../eth/vaixDemo';
 import { createProvider } from '../../eth/provider';
 import { transfer } from '../../eth/transfer';
 import { Link } from 'react-router-dom';
@@ -72,8 +72,8 @@ const Transfer = () => {
             let token = await captchaRef.current.getValue();
             if (token) {
                     const provider = createProvider()
-                    const solashiNFT = createInstance(provider)
-                const response = await transfer(solashiNFT, provider, values, token);
+                    const vaixDemo = createInstance(provider)
+                const response = await transfer(vaixDemo, provider, values, token);
                 const hash = response.hash;
                     if (hash) {
                         toast('Transaction sent!', { type: 'success' });
@@ -117,8 +117,8 @@ const Transfer = () => {
                     </Space>
             </Header>
             <Content style={{ padding: '0 50px' }}>
+            <h1>Transfer NFT</h1>
                 <div className="site-layout-content" style={{ background: colorBgContainer }}>
-                    <h1>Transfer NFT</h1>
                     <Form
                         {...layout}
                         ref={formRef}

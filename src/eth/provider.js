@@ -1,7 +1,7 @@
 ﻿import { JsonRpcProvider } from 'ethers';
 
-const MAIN_ENDPOINT = 'https://nd-522-024-059.p2pify.com/a822bb7695d5aebc96b4288ad6b34fdb';
+const MAIN_ENDPOINT = `https://polygon-mainnet.infura.io/v3/${process.env.INFURA_KEY}`;
 
 export function createProvider() {
-  return new JsonRpcProvider(MAIN_ENDPOINT, 80001);
+  return new JsonRpcProvider(MAIN_ENDPOINT, 137);
 }

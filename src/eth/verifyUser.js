@@ -1,10 +1,10 @@
 import { ethers, toNumber } from "ethers";
 
-export async function verifierUser(solashiNFT, provider) {
+export async function verifierUser(vaixDemo, provider) {
   await window.ethereum.request({ method: 'eth_requestAccounts' });
   const userProvider = new ethers.BrowserProvider(window.ethereum)
   const userNetwork = await userProvider.getNetwork();
-  if (toNumber(userNetwork.chainId) !== 80001) throw new Error(`Please switch to Mumbai for signing`);
+  if (toNumber(userNetwork.chainId) !== 137) throw new Error(`Please switch to Polygon Mainet for signing`);
   const signer = userProvider.getSigner();
   const input = "vaix"
   const signature = await (await signer).signMessage(input);
