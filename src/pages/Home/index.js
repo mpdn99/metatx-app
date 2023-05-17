@@ -26,7 +26,7 @@ const Mint = () => {
   return (
     <Layout className="layout">
       <Header style={{ display: "flex", justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1 style={{ color: 'white' }}>VAIX</h1>
+        <h1 style={{ color: 'white' }}>VAIX Demo</h1>
         <Button onClick={handleClick} >Connect Wallet</Button>
       </Header>
       <Content style={{ padding: '0 50px' }}>

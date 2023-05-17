@@ -98,7 +98,7 @@ const Transfer = () => {
 
     return (
         <Layout className="layout">
-                        <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Space>
                     <h1 style={{ color: 'white', marginRight: '20px' }}>VAIX</h1>
                     <Menu

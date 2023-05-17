@@ -97,7 +97,7 @@ const Mint = () => {
 
     return (
         <Layout className="layout">
-            <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            {/* <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Space>
                     <h1 style={{ color: 'white', marginRight: '20px' }}>VAIX</h1>
                     <Menu
@@ -114,7 +114,7 @@ const Mint = () => {
                             </p>
                         </Dropdown>
                     </Space>
-            </Header>
+            </Header> */}
             <Content style={{ padding: '0 50px' }}>
                 <h1>Mint NFT</h1>
                 <div className="site-layout-content" style={{ background: colorBgContainer }}>
