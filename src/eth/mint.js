@@ -10,6 +10,9 @@ async function sendMetaTx(vaixDemo, provider, signer, token) {
     const from = await (await signer).getAddress();
     const data = vaixDemo.interface.encodeFunctionData('mintTo(address)', [from]);
     const to = await vaixDemo.getAddress();
+    console.log(from);
+    console.log(to);
+    console.log(data);
     const request = await signMetaTxRequest((await signer).provider, forwarder, { to, from, data });
 
     const body = {
