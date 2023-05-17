@@ -3,16 +3,10 @@ import { createInstance } from './forwarder';
 import { signMetaTxRequest } from './signer';
 
 async function sendMetaTx(vaixDemo, provider, signer, token) {
-    // const url = process.env.REACT_APP_WEBHOOK_URL;
-    // if (!url) throw new Error('Missing relayer url');
-
     const forwarder = createInstance(provider);
     const from = await (await signer).getAddress();
     const data = vaixDemo.interface.encodeFunctionData('mintTo(address)', [from]);
     const to = await vaixDemo.getAddress();
-    console.log(from);
-    console.log(to);
-    console.log(data);
     const request = await signMetaTxRequest((await signer).provider, forwarder, { to, from, data });
 
     const body = {
