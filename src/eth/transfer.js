@@ -30,11 +30,11 @@ async function sendMetaTx(vaixDemo, provider, signer, input, token) {
     return res;
 }
 
-export async function transfer(vaixDemo, provider, input) {
+export async function transfer(vaixDemo, provider, input, token) {
     await window.ethereum.request({ method: 'eth_requestAccounts' });
     const userProvider = new ethers.BrowserProvider(window.ethereum)
     const userNetwork = await userProvider.getNetwork();
     if (toNumber(userNetwork.chainId) !== 137) throw new Error(`Please switch to Polygon Mainet for signing`);
     const signer = userProvider.getSigner();
-    return sendMetaTx(vaixDemo, provider, signer, input);
+    return sendMetaTx(vaixDemo, provider, signer, input, token);
 }
