@@ -6,5 +6,7 @@ export function createInstance(nftContractAddress, provider) {
     const res = await rs.json();
     return res;
   }
+  console.log('abi ', abi);
+  console.log('nftContractAddress ', nftContractAddress);
   return new Contract(nftContractAddress, abi, provider);
 }
