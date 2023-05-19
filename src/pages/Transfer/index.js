@@ -56,12 +56,12 @@ const Transfer = () => {
 
     const items = [
         {
-          key: '1',
-          label: (
-            <p onClick={logOut}>
-                Sign Out
-            </p>
-          ),
+            key: '1',
+            label: (
+                <p onClick={logOut}>
+                    Sign Out
+                </p>
+            ),
         },
     ];
 
@@ -71,16 +71,16 @@ const Transfer = () => {
         try {
             let token = await captchaRef.current.getValue();
             if (token) {
-                    const provider = createProvider()
-                    const vaixDemo = createInstance(values.nftContractAddress, provider)
+                const provider = createProvider()
+                const vaixDemo = await createInstance(values.nftContractAddress, provider)
                 console.log(vaixDemo);
                 const response = await transfer(vaixDemo, provider, values, token);
                 const hash = response.hash;
-                    if (hash) {
-                        toast('Transaction sent!', { type: 'success' });
-                    }
-                    formRef.current?.resetFields();
-                    captchaRef.current?.reset();
+                if (hash) {
+                    toast('Transaction sent!', { type: 'success' });
+                }
+                formRef.current?.resetFields();
+                captchaRef.current?.reset();
             } else {
                 console.log("You must confirm you are not a robot");
             }
@@ -109,16 +109,16 @@ const Transfer = () => {
                         items={navItem}
                     />
                 </Space>
-                    <Space wrap>
-                        <Dropdown menu={{ items }} placement="bottomRight">
-                            <p style={{ color: 'white'}}>
-                                {localStorage.getItem("UserID")}
-                            </p>
-                        </Dropdown>
-                    </Space>
+                <Space wrap>
+                    <Dropdown menu={{ items }} placement="bottomRight">
+                        <p style={{ color: 'white' }}>
+                            {localStorage.getItem("UserID")}
+                        </p>
+                    </Dropdown>
+                </Space>
             </Header>
             <Content style={{ padding: '0 50px' }}>
-            <h1>Transfer NFT</h1>
+                <h1>Transfer NFT</h1>
                 <div className="site-layout-content" style={{ background: colorBgContainer }}>
                     <Form
                         {...layout}
