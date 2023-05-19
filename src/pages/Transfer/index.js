@@ -73,6 +73,7 @@ const Transfer = () => {
             if (token) {
                     const provider = createProvider()
                     const vaixDemo = createInstance(values.nftContractAddress, provider)
+                console.log(vaixDemo);
                 const response = await transfer(vaixDemo, provider, values, token);
                 const hash = response.hash;
                     if (hash) {
