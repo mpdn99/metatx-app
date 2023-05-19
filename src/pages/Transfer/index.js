@@ -3,7 +3,7 @@ import { Button, Dropdown, Form, Input, Layout, Menu, Space, theme } from 'antd'
 import './index.css';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { createInstance } from '../../eth/vaixDemo';
+import { createInstance } from '../../eth/customContract';
 import { createProvider } from '../../eth/provider';
 import { transfer } from '../../eth/transfer';
 import { Link } from 'react-router-dom';
@@ -72,7 +72,7 @@ const Transfer = () => {
             let token = await captchaRef.current.getValue();
             if (token) {
                     const provider = createProvider()
-                    const vaixDemo = createInstance(provider)
+                    const vaixDemo = createInstance(values.nftContractAddress, provider)
                 const response = await transfer(vaixDemo, provider, values, token);
                 const hash = response.hash;
                     if (hash) {
@@ -126,10 +126,13 @@ const Transfer = () => {
                         onFinish={onFinish}
                         style={{ maxWidth: 600 }}
                     >
-                        <Form.Item name="sendTokenTo" label="To" rules={[{ required: true }]}>
+                        <Form.Item name="nftContractAddress" label="NFT Contract Address" rules={[{ required: true }]}>
                             <Input />
                         </Form.Item>
-                        <Form.Item name="tokenId" label="TokenId" rules={[{ required: true }]}>
+                        <Form.Item name="tokenId" label="Token Id" rules={[{ required: true }]}>
+                            <Input />
+                        </Form.Item>
+                        <Form.Item name="sendTokenTo" label="To" rules={[{ required: true }]}>
                             <Input />
                         </Form.Item>
                         <Form.Item {...tailLayout}>
