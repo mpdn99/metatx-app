@@ -1,34 +1,14 @@
 import React, { useEffect } from 'react';
-import { Button, Dropdown, Form, Image, Input, Layout, Menu, Space, theme } from 'antd';
+import { Button, Form, Image, Layout, theme } from 'antd';
 import './index.css';
 import { toast, ToastContainer } from 'react-toastify';
 import { mint } from "../../eth/mint";
 import 'react-toastify/dist/ReactToastify.css';
 import { createInstance } from '../../eth/vaixDemo';
 import { createProvider } from '../../eth/provider';
-import { Link } from 'react-router-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
-
-const { Header, Content } = Layout;
-
-const navItem = [
-    {
-        key: '1',
-        label: (
-            <Link to="/mint">
-                Mint NFT
-            </Link>
-        ),
-    },
-    {
-        key: '2',
-        label: (
-            <Link to="/transfer">
-                Transfer NFT
-            </Link>
-        ),
-    },
-]
+import { Content } from 'antd/es/layout/layout';
+import HeaderView from '../../components/HeaderView';
 
 const layout = {
     labelCol: { span: 8 },
@@ -46,23 +26,6 @@ const Mint = () => {
 
     const captchaRef = React.useRef(null);
     const [loading, setLoading] = React.useState(false);
-
-    const logOut = () => {
-        localStorage.removeItem("IDtoken");
-        localStorage.removeItem("UserID");
-        window.location.href = "/";
-    }
-
-    const items = [
-        {
-          key: '1',
-          label: (
-            <p onClick={logOut}>
-                Sign Out
-            </p>
-          ),
-        },
-    ];
 
     const onFinish = async () => {
         setLoading(true);
@@ -97,24 +60,7 @@ const Mint = () => {
 
     return (
         <Layout className="layout">
-            <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Space>
-                    <h1 style={{ color: 'white', marginRight: '20px' }}>VAIX</h1>
-                    <Menu
-                        theme="dark"
-                        mode="horizontal"
-                        defaultSelectedKeys={['1']}
-                        items={navItem}
-                    />
-                </Space>
-                    <Space wrap>
-                        <Dropdown menu={{ items }} placement="bottomRight">
-                            <p style={{ color: 'white'}}>
-                                {localStorage.getItem("UserID")}
-                            </p>
-                        </Dropdown>
-                    </Space>
-            </Header>
+            <HeaderView selectedPageKey="mint" />
             <Content style={{ padding: '0 50px' }}>
                 <h1>Mint NFT</h1>
                 <div className="site-layout-content" style={{ background: colorBgContainer }}>

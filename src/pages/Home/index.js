@@ -29,9 +29,6 @@ const Mint = () => {
         <h1 style={{ color: 'white' }}>VAIX Demo</h1>
         <Button onClick={handleClick} >Connect Wallet</Button>
       </Header>
-      <Content style={{ padding: '0 50px' }}>
-
-      </Content>
       <ToastContainer />
     </Layout>
   );
